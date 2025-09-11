@@ -1,0 +1,55 @@
+// Styles used for local dev outside the Discourse platform
+@use "node_modules/normalize.css/normalize";
+
+$font-alboroto-woff2: "../assets/font-alboroto-woff2.woff2" !default;
+$font-alboroto-woff: "../assets/font-alboroto-woff.woff" !default;
+$font-lato-regular-woff2: "../assets/font-lato-regular-woff2.woff2" !default;
+$font-lato-regular-woff: "../assets/font-lato-regular-woff.woff" !default;
+$font-lato-italic-woff2: "../assets/font-lato-italic-woff2.woff2" !default;
+$font-lato-italic-woff: "../assets/font-lato-italic-woff.woff" !default;
+$font-lato-bold-woff2: "../assets/font-lato-bold-woff2.woff2" !default;
+$font-lato-bold-woff: "../assets/font-lato-bold-woff.woff" !default;
+$font-lato-bold-italic-woff2: "../assets/font-lato-bold-italic-woff2.woff2" !default;
+$font-lato-bold-italic-woff: "../assets/font-lato-bold-italic-woff.woff" !default;
+$font-major-snopes-woff2: "../assets/font-major-snopes-woff2.woff2" !default;
+$font-major-snopes-woff: "../assets/font-major-snopes-woff.woff" !default;
+$font-varela-round-woff2: "../assets/font-varela-round-woff2.woff2" !default;
+$font-varela-round-woff: "../assets/font-varela-round-woff.woff" !default;
+
+$hero-bg: "../assets/hero-bg.png" !default;
+$footer-logo: "../assets/awpo10-logo.svg" !default;
+
+:root {
+  --d-max-width: 1110px;
+
+  // Manually imported colour scheme values
+  --primary: #000000;
+  --secondary: #ffffff;
+  --tertiary: #d0016b;
+  --quaternary: #1aa195;
+  --header_background: #ffffff;
+  --header_primary: #1aa195;
+  --highlight: #e0df46;
+  --danger: #d0016b;
+  --success: #1aa195;
+  --love: #d0016b;
+  --selected: #f1f1f1;
+  --hover: #eaeaea;
+  --quanternary_dark: #284441;
+  --lowlight: #226760;
+}
+
+.wrap {
+  max-width: var(--d-max-width);
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 10px;
+}
+
+a {
+  color: var(--tertiary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@import "common/common";

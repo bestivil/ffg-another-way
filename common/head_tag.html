@@ -1,0 +1,191 @@
+<script defer>
+  const loggedOut = ".anon";
+  const locationInput = "input#edit-location";
+  const userGroup = ".user-field-i-am-a .select-kit";
+  const datePicker = ".user-field-date-of-birth";
+  const teacherName = ".user-field-teacher-name";
+  const consent = ".user-field.confirm";
+  const composeButton = "button.compose-pm";
+  const contactLink = ".js-contact";
+  const collapsedInfo = "#collapsed-info-panel";
+  const signUpButton = ".sign-up-button";
+
+  let isLoggedIn = true;
+  let picker;
+
+  function waitForElement(selector) {
+    return new Promise((resolve) => {
+      if (document.querySelector(selector)) {
+        return resolve(document.querySelector(selector));
+      }
+
+      const observer = new MutationObserver((mutations) => {
+        if (document.querySelector(selector)) {
+          observer.disconnect();
+          resolve(document.querySelector(selector));
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    });
+  }
+
+  function setInputValue(selector, value) {
+    selector.value = value;
+    selector.dispatchEvent(new Event("change"));
+  }
+
+  function setCheckboxValue(selector, value) {
+    selector.checked = value;
+    selector.dispatchEvent(new Event("change"));
+  }
+
+  function toggleUserFieldVisibility(userGroupElement, clearFields = false) {
+    const selectedGroup = userGroupElement.firstElementChild.dataset.value;
+
+    const datePickerUserField = document.querySelector(datePicker);
+    const teacherNameUserField = document.querySelector(teacherName);
+    const consentUserField = document.querySelector(consent);
+
+    const datePickerInput = document.querySelector(datePicker + " input");
+    const teacherNameInput = document.querySelector(teacherName + " input");
+    const consentInput = document.querySelector(consent + " input");
+
+    if (selectedGroup == "Young Person") {
+      datePickerUserField.parentElement.style.display = "block";
+      teacherNameUserField.parentElement.style.display = "block";
+      consentUserField.parentElement.style.display = "block";
+
+      if (!isLoggedIn) {
+        setInputValue(datePickerInput, "");
+        setInputValue(teacherNameInput, "");
+        setCheckboxValue(consentInput, false);
+      }
+    }
+
+    if (selectedGroup == "Teacher") {
+      datePickerUserField.parentElement.style.display = "none";
+      teacherNameUserField.parentElement.style.display = "none";
+      consentUserField.parentElement.style.display = "none";
+
+      document.querySelector(".pika-single").classList.add("is-hidden");
+
+      if (!isLoggedIn) {
+        setInputValue(datePickerInput, "01/01/1970");
+        setInputValue(teacherNameInput, "N/A");
+        setCheckboxValue(consentInput, true);
+      }
+    }
+  }
+
+  function scripts() {
+    waitForElement(loggedOut).then(() => {
+      isLoggedIn = false;
+    });
+
+    // Initialise user field display
+    waitForElement(datePicker).then(() => {
+      document.querySelector(datePicker).parentElement.style.display = "none";
+    });
+
+    waitForElement(teacherName).then(() => {
+      document.querySelector(teacherName).parentElement.style.display = "none";
+    });
+
+    waitForElement(consent).then(() => {
+      document.querySelector(consent).parentElement.style.display = "none";
+    });
+
+    // Show/hide fields based on user group
+    waitForElement(userGroup).then(() => {
+      const userGroupElement = document.querySelector(userGroup);
+
+      // Set initial state of fields in profile view
+      toggleUserFieldVisibility(userGroupElement);
+
+      userGroupElement.addEventListener("toggle", (e) => {
+        if (!userGroupElement.open) {
+          toggleUserFieldVisibility(userGroupElement);
+        }
+      });
+    });
+
+    // Display instructional text alongside location field
+    waitForElement(locationInput).then(() => {
+      const locationInstructionText = "Provide the name of the city/town and country where you live (e.g. London, UK)";
+      const locationInputElement = document.querySelector(locationInput);
+      const locationHelp = document.createElement("div");
+
+      locationHelp.innerHTML = locationInstructionText;
+      locationHelp.classList.add("instructions");
+      locationInputElement.parentNode.insertBefore(
+        locationHelp,
+        locationInputElement.nextSibling
+      );
+    });
+
+    // Trigger message modal if action query param is message...
+    waitForElement(contactLink).then(() => {
+      document.querySelector(contactLink).addEventListener("click", (e) => {
+        localStorage.setItem("message", "true");
+        window.location.href = e.target.dataset.href;
+      });
+    });
+
+    // ...then launch message modal
+    waitForElement(composeButton).then(() => {
+      if (localStorage.getItem("message") == "true") {
+        document.querySelector(composeButton).click();
+        localStorage.removeItem("message");
+      }
+    });
+
+    // Unload user stats on profile pages
+    waitForElement(collapsedInfo).then(() => {
+      const collapsedInfoElement = document.querySelector(collapsedInfo);
+      collapsedInfoElement.remove();
+    });
+
+    // Reload scripts after Discourse navigation
+    waitForElement(signUpButton).then(() => {
+      document.querySelector(signUpButton).addEventListener("click", (e) => {
+        scripts();
+      });
+    });
+  }
+
+  // Load Pikaday scripts
+  waitForElement(datePicker).then(() => {
+    let pikadayScript = document.createElement("script");
+    pikadayScript.src = "https://cdn.jsdelivr.net/npm/pikaday/pikaday.js";
+    document.body.appendChild(pikadayScript);
+
+    let pikadayStyle = document.createElement("link");
+    pikadayStyle.href = "https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css";
+    pikadayStyle.rel = "stylesheet";
+    pikadayStyle.type = "text/css";
+    document.body.appendChild(pikadayStyle);
+
+    function waitForPikaday() {
+      if (typeof Pikaday !== "undefined") {
+        const presentYear = new Date().getFullYear();
+        const earliestYear = presentYear - 100;
+
+        picker = new Pikaday({
+          field: document.querySelector(datePicker + " input"),
+          format: "L",
+          yearRange: [earliestYear, presentYear],
+        });
+      } else {
+        setTimeout(waitForPikaday, 300);
+      }
+    }
+
+    waitForPikaday();
+  });
+
+  window.onload = scripts();
+</script>
