@@ -1,35 +1,39 @@
 import { withSilencedDeprecations } from "discourse/lib/deprecated";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-function avatarSize(api) {
-  // Change avatar size on desktop
+function applyAvatarSize(api) {
   api.registerValueTransformer("post-avatar-size", () => 60);
 
-  // Wrap the old widget code while silencing deprecation warnings
+  // legacy widget support
   withSilencedDeprecations("discourse.post-stream-widget-overrides", () =>
-    oldAvatarSize(api)
+    api.changeWidgetSetting("post-avatar", "size", 60)
   );
-}
-
-// Old widget code (still needed for pre-Glimmer widgets)
-function oldAvatarSize(api) {
-  api.changeWidgetSetting("post-avatar", "size", 60);
 }
 
 export default {
   name: "avatar-size",
 
   initialize(container) {
-    // ------------------------------------------------------------------
-    // Exit unless we’re viewing a topic list in the “community” category
-    // ------------------------------------------------------------------
-    if (!document.body.classList.contains("category-community")) {
-      return;
+    const site = container.lookup("site:main");
+    if (site.mobileView) {
+      return; // desktop only
     }
 
-    const site = container.lookup("site:main");
-    if (!site.mobileView) {
-      withPluginApi((api) => avatarSize(api));
-    }
+    withPluginApi("1.8.0", (api) => {
+      let done = false;
+
+      const runIfCommunity = () => {
+        if (done) {
+          return;
+        }
+        if (window?.location?.pathname?.includes("/c/community")) {
+          applyAvatarSize(api);
+          done = true;
+        }
+      };
+
+      runIfCommunity();
+      api.onPageChange(runIfCommunity);
+    });
   },
 };
