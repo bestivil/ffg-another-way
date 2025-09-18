@@ -1286,11 +1286,11 @@ body:not(.category-community) {
   }
 
   .d-header-mode, /* Hide the getting started link */
-.topic-list-bottom, /* Hide topic list footer */
-#navigation-bar, /* Hide category navigation bar */
-.category-community #list-area, /* Hide topic list footer on Community Space category */
-.category-community .category-list thead /* Hide Community Space sub-category list headings */,
-body:not([class*='category-']):not([class*='categories-']) #navigation-bar /* Hide category navigation entirely on non-category pages */ {
+  .topic-list-bottom, /* Hide topic list footer */
+  .category-community #navigation-bar, /* Hide category navigation bar on Community only */
+  .category-community #list-area, /* Hide topic list footer on Community Space category */
+  .category-community .category-list thead /* Hide Community Space sub-category list headings */,
+  body:not([class*='category-']):not([class*='categories-']) #navigation-bar /* Hide category navigation entirely on non-category pages */ {
     display: none !important;
   }
 

@@ -509,11 +509,11 @@ body.category-community {
      ============================================================ */
 
   // FKBM - Topic List
-  // Topic List
-  .navigation-topics,
-  .categories-list,
-  body[class*="tag-"]:not(.archetype-regular):not(.archetype-banner),
-  body[class*="category-"]:not(.archetype-regular):not(.archetype-banner) {
+  // Topic List (Community only)
+  &.navigation-topics,
+  &.categories-list,
+  &[class*="tag-"]:not(.archetype-regular):not(.archetype-banner),
+  &[class*="category-"]:not(.archetype-regular):not(.archetype-banner) {
     .list-controls {
       z-index: z("usercard");
 
