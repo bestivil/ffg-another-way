@@ -6,15 +6,25 @@ export default {
 
   initialize() {
     withPluginApi("0.8.13", (api) => {
-      const runIfCommunity = () => {
-        if (window?.location?.pathname?.includes("/c/community")) {
-          // Treat widths < 1000 px as “narrow desktop”
-          NarrowDesktop.isNarrowDesktopView = (width) => width < 1000;
+      const originalIsNarrow = NarrowDesktop.isNarrowDesktopView;
+      let applied = false;
+
+      const updateForRoute = () => {
+        const onCommunity =
+          window?.location?.pathname?.includes("/c/community");
+        if (onCommunity) {
+          if (!applied) {
+            NarrowDesktop.isNarrowDesktopView = (width) => width < 1000;
+            applied = true;
+          }
+        } else if (applied) {
+          NarrowDesktop.isNarrowDesktopView = originalIsNarrow;
+          applied = false;
         }
       };
 
-      runIfCommunity();
-      api.onPageChange(runIfCommunity);
+      updateForRoute();
+      api.onPageChange(updateForRoute);
     });
   },
 };

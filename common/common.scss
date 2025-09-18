@@ -767,7 +767,7 @@ body:not(.category-community) {
   }
 
   // Topic List view overrides
-  .topic-list {
+  body.category-community .topic-list {
     td {
       color: var(--primary);
     }
@@ -1038,7 +1038,7 @@ body:not(.category-community) {
       }
     }
 
-    .topic-thumbnails-minimal {
+  body.category-community .topic-thumbnails-minimal {
       tbody.topic-list-body {
         display: table;
 
@@ -1206,8 +1206,7 @@ body:not(.category-community) {
     }
 
     &--dark {
-      /* Use quaternary colour or fallback */
-      background-color: var(--quaternary);
+      background-color: var(--quanternary_dark);
     }
 
     &--skew {

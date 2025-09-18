@@ -40,7 +40,7 @@ export default class TliMiddleSection extends Component {
             {{#if settings.topic_image_backdrop}}
               <div class="topic-image__backdrop" style={{this.topicBackgroundStyle}} loading="lazy"></div>
             {{/if}}
-            <img src="{{this.topic.image_url}}" class="topic-image__img" loading="lazy">
+            <img src="{{this.topic.image_url}}" class="topic-image__img" loading="eager">
           </div>
         </a>
       {{/if}}

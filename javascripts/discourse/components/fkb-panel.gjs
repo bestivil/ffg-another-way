@@ -4,6 +4,7 @@ import { action } from "@ember/object";
 import { htmlSafe } from "@ember/template";
 import { concat } from "@ember/helper";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import didUpdate from "@ember/render-modifiers/modifiers/did-update";
 import { service } from "@ember/service";
 import { getURLWithCDN } from "discourse/lib/get-url";
 import ConditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
@@ -75,7 +76,7 @@ export default class FkbPanel extends Component {
 
   <template>
     {{#unless this.site.mobileView}}
-      <div class="fkb-panel-sidebar" {{didInsert this.fetchUserDetails}}>
+      <div class="fkb-panel-sidebar" {{didInsert this.fetchUserDetails}} {{didUpdate this.fetchUserDetails this.currentUser}}>
         <div class="fkb-panel">
           {{#if this.currentUser}}
             <ConditionalLoadingSpinner @condition={{this.loading}}>

@@ -5,24 +5,24 @@ import FkbPanel from "../components/fkb-panel";
 
 export default apiInitializer("1.8.0", (api) => {
   let initialized = false;
+  let teardownApplied = false;
+  let registered = false;
 
-  const runIfCommunity = () => {
-    if (initialized) {
-      return;
-    }
-    if (!window?.location?.pathname?.includes("/c/community")) {
-      return;
-    }
-
+  if (!registered) {
     if (!settings.disable_topic_list_modification) {
-      api.registerValueTransformer(
-        "topic-list-item-mobile-layout",
-        () => false
-      );
+      api.registerValueTransformer("topic-list-item-mobile-layout", () => {
+        const onCommunity =
+          window?.location?.pathname?.includes("/c/community");
+        if (onCommunity) {
+          return false;
+        }
+        return undefined;
+      });
     }
 
     api.registerValueTransformer("topic-list-columns", ({ value: columns }) => {
-      if (!settings.disable_topic_list_modification) {
+      const onCommunity = window?.location?.pathname?.includes("/c/community");
+      if (onCommunity && !settings.disable_topic_list_modification) {
         columns.delete("posters");
         columns.delete("replies");
         columns.delete("views");
@@ -43,31 +43,43 @@ export default apiInitializer("1.8.0", (api) => {
       (Superclass) =>
         class extends Superclass {
           get renderNewListHeaderControls() {
+            const onCommunity =
+              window?.location?.pathname?.includes("/c/community");
             return (
-              this.showTopicsAndRepliesToggle && !this.args.bulkSelectEnabled
+              onCommunity &&
+              this.showTopicsAndRepliesToggle &&
+              !this.args.bulkSelectEnabled
             );
           }
         }
     );
 
-    api.onPageChange(() => {
-      if (!window?.location?.pathname?.includes("/c/community")) {
-        return;
-      }
-      const fkbHidden = localStorage.getItem("fkb_panel_hidden") === "true";
-      const fkbVisible = localStorage.getItem("fkb_panel_hidden") === "false";
-      const isHidden = document.body.classList.contains("fkb-panel-hidden");
+    registered = true;
+  }
 
+  const syncPanelState = () => {
+    const onCommunity = window?.location?.pathname?.includes("/c/community");
+    const fkbHidden = localStorage.getItem("fkb_panel_hidden") === "true";
+    const fkbVisible = localStorage.getItem("fkb_panel_hidden") === "false";
+    const isHidden = document.body.classList.contains("fkb-panel-hidden");
+
+    if (onCommunity) {
       if (fkbHidden && !isHidden) {
         document.body.classList.add("fkb-panel-hidden");
       } else if (fkbVisible && isHidden) {
         document.body.classList.remove("fkb-panel-hidden");
       }
-    });
+      teardownApplied = false;
+    } else {
+      if (!teardownApplied) {
+        document.body.classList.remove("fkb-panel-hidden");
+        teardownApplied = true;
+      }
+    }
 
     initialized = true;
   };
 
-  runIfCommunity();
-  api.onPageChange(runIfCommunity);
+  syncPanelState();
+  api.onPageChange(syncPanelState);
 });

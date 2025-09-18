@@ -7,10 +7,11 @@ export default {
   initialize() {
     withPluginApi("0.8.13", (api) => {
       const setBodyClass = () => {
-        const router = api.container.lookup("router:main");
-        const { currentRouteName } = router;
+        const home = defaultHomepage();
+        const path = window?.location?.pathname || "/";
+        const isHome = path === "/" || path === `/${home}`;
 
-        if (currentRouteName === `discovery.${defaultHomepage()}`) {
+        if (isHome) {
           document.body.classList.add("custom-homepage");
         } else {
           document.body.classList.remove("custom-homepage");
