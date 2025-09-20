@@ -1,5 +1,68 @@
 // ------------- POWER OF TEN STYLES -------------
 
+@font-face {
+  font-family: "Alboroto";
+  src: url($font-alboroto-woff2) format("woff2"),
+    url($font-alboroto-woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url($font-lato-regular-woff2) format("woff2"),
+    url($font-lato-regular-woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url($font-lato-italic-woff2) format("woff2"),
+    url($font-lato-italic-woff) format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url($font-lato-bold-woff2) format("woff2"),
+    url($font-lato-bold-woff) format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url($font-lato-bold-italic-woff2) format("woff2"),
+    url($font-lato-bold-italic-woff) format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Major Snopes";
+  src: url($font-major-snopes-woff2) format("woff2"),
+    url($font-major-snopes-woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Varela Round";
+  src: url($font-varela-round-woff2) format("woff2"),
+    url($font-varela-round-woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body:not(.category-community) {
   // Global
 
