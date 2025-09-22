@@ -259,7 +259,7 @@ body.category-community {
     }
 
     .fkb-panel {
-      display: none;
+      display: block;
       position: sticky;
       top: calc(var(--header-offset) + 2em);
       margin-bottom: 0.5em;
@@ -267,7 +267,7 @@ body.category-community {
       @include bg-br;
 
       .visitor {
-        display: none;
+        display: block;
       }
 
       .anon & {
@@ -489,7 +489,7 @@ body.category-community {
         }
 
         .tc-right-sidebar {
-          display: none;
+          display: block;
         }
       }
     }
@@ -941,7 +941,7 @@ body.category-community {
       }
     }
 
-      .container:first-of-type {
+    .container:first-of-type {
       grid-area: alerts;
     }
 

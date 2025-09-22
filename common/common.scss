@@ -63,7 +63,6 @@
   font-display: swap;
 }
 
-body:not(.category-community) {
   // Global
 
   :root {
@@ -396,9 +395,9 @@ body:not(.category-community) {
       &.login-button {
         background-color: var(--tertiary);
 
-        svg {
-          display: none;
-        }
+        // svg {
+        //   display: none;
+        // }
       }
 
       &#create-topic {
@@ -487,9 +486,9 @@ body:not(.category-community) {
       }
 
       .badge-category {
-        &::before {
-          display: none;
-        }
+        // &::before {
+        //   display: none;
+        // }
         &::after {
           content: "";
           position: absolute;
@@ -596,9 +595,9 @@ body:not(.category-community) {
           outline: none;
         }
 
-        .badge-category::before {
-          display: none;
-        }
+        // .badge-category::before {
+        //   display: none;
+        // }
 
         .selected-name .name {
           font-weight: 700;
@@ -662,7 +661,7 @@ body:not(.category-community) {
   .intro {
     background-color: var(--highlight);
     color: var(--primary);
-    display: none;
+    // display: none;
     font-size: 1.125rem;
     line-height: var(--line-height);
     margin: var(--spacingDefault) 0 var(--spacingLarge);
@@ -852,9 +851,9 @@ body:not(.category-community) {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      &::before {
-        display: none;
-      }
+      // &::before {
+      //   display: none;
+      // }
 
       .title {
         display: block;
@@ -883,9 +882,9 @@ body:not(.category-community) {
             border-radius: 16px;
             margin-right: var(--spacingXSmall);
 
-            &::after {
-              display: none;
-            }
+            // &::after {
+            //   display: none;
+            // }
 
             &:last-child {
               margin-right: 0;
@@ -901,10 +900,10 @@ body:not(.category-community) {
       }
     }
 
-    th.views,
-    td.views {
-      display: none;
-    }
+    // th.views,
+    // td.views {
+    //   display: none;
+    // }
     // Topic list cards
     &.topic-thumbnails-minimal {
       tbody.topic-list-body {
@@ -959,11 +958,11 @@ body:not(.category-community) {
           box-shadow: none;
         }
       }
-      td.views,
-      td.posters,
-      td.age {
-        display: none;
-      }
+      // td.views,
+      // td.posters,
+      // td.age {
+      //   display: none;
+      // }
 
       .topic-list-thumbnail {
         margin-top: calc(var(--spacingDefault) * -1);
@@ -1024,9 +1023,9 @@ body:not(.category-community) {
   // Announcements
   .announcements {
     .admin-interface &,
-    .category-announcements & {
-      display: none;
-    }
+    // .category-announcements & {
+    //   display: none;
+    // }
 
     &__inner {
       border: 1px solid var(--primary-low);
@@ -1060,7 +1059,7 @@ body:not(.category-community) {
 
     .topic-list {
       .topic-list-header {
-        display: none;
+        display: block;
       }
 
       tbody.topic-list-body {
@@ -1086,19 +1085,19 @@ body:not(.category-community) {
             color: var(--primary) !important;
           }
         }
-        .link-bottom-line {
-          display: none;
-        }
+        // .link-bottom-line {
+        //   display: none;
+        // }
       }
       td.posters {
         width: auto;
       }
 
-      td.views,
-      td.posts,
-      td.age {
-        display: none;
-      }
+      // td.views,
+      // td.posts,
+      // td.age {
+      //   display: none;
+      // }
     }
 
   body.category-community .topic-thumbnails-minimal {
@@ -1114,12 +1113,12 @@ body:not(.category-community) {
           margin-top: 0;
         }
 
-        .topic-list-thumbnail,
-        .topic-thumbnail-likes,
-        .link-bottom-line,
-        .topic-excerpt {
-          display: none;
-        }
+        // .topic-list-thumbnail,
+        // .topic-thumbnail-likes,
+        // .link-bottom-line,
+        // .topic-excerpt {
+        //   display: none;
+        // }
       }
     }
   }
@@ -1289,13 +1288,13 @@ body:not(.category-community) {
     }
   }
 
-  .before-topic-list-heading {
-    display: none;
+  // .before-topic-list-heading {
+  //   display: none;
 
-    body:not([class*="category-"]) & {
-      display: block;
-    }
-  }
+  //   body:not([class*="category-"]) & {
+  //     display: block;
+  //   }
+  // }
 
   // Profile page override
   .user-content {
@@ -1327,14 +1326,14 @@ body:not(.category-community) {
       }
     }
 
-    .replies-section,
-    .topics-section,
-    .links-section,
-    .replied-section,
-    .most-liked-section,
-    .top-categories-section {
-      display: none !important;
-    }
+    // .replies-section,
+    // .topics-section,
+    // .links-section,
+    // .replied-section,
+    // .most-liked-section,
+    // .top-categories-section {
+    //   display: none !important;
+    // }
   }
 
   // User card
@@ -1348,24 +1347,24 @@ body:not(.category-community) {
     display: flex;
   }
 
-  .d-header-mode, /* Hide the getting started link */
-  .topic-list-bottom, /* Hide topic list footer */
-  .category-community #navigation-bar, /* Hide category navigation bar on Community only */
-  .category-community #list-area, /* Hide topic list footer on Community Space category */
-  .category-community .category-list thead /* Hide Community Space sub-category list headings */,
-  body:not([class*='category-']):not([class*='categories-']) #navigation-bar /* Hide category navigation entirely on non-category pages */ {
-    display: none !important;
-  }
+  // .d-header-mode, /* Hide the getting started link */
+  // .topic-list-bottom, /* Hide topic list footer */
+  // .category-community #navigation-bar, /* Hide category navigation bar on Community only */
+  // .category-community #list-area, /* Hide topic list footer on Community Space category */
+  // .category-community .category-list thead /* Hide Community Space sub-category list headings */,
+  // body:not([class*='category-']):not([class*='categories-']) #navigation-bar /* Hide category navigation entirely on non-category pages */ {
+  //   display: none !important;
+  // }
 
-  .d-header-icons,
-  .list-controls,
-  .list-container,
-  .sidebar-wrapper {
-    .anon & {
-      // Ideally we'd do this via the template, but not sure how... 🤔
-      display: none !important;
-    }
-  }
+  // .d-header-icons,
+  // .list-controls,
+  // .list-container,
+  // .sidebar-wrapper {
+  //   .anon & {
+  //     // Ideally we'd do this via the template, but not sure how... 🤔
+  //     display: none !important;
+  //   }
+  // }
 
   // Override label placement for user type selection
   .create-account
@@ -1388,11 +1387,11 @@ body:not(.category-community) {
 
   // Provide some space between the content & footer for non-logged in users
   #main-outlet-wrapper {
-    min-height: 350px;
+    min-height: 0px;
   }
 
   #main-outlet {
-    padding-bottom: 1.5em;
+    padding-bottom: 1.5px;
   }
 
   #login-form {
@@ -1448,7 +1447,7 @@ body:not(.category-community) {
   }
 
   .navigation-controls {
-    margin-left: auto;
+    margin-left: 1px;
   }
 
   .alert {
@@ -1500,7 +1499,6 @@ body:not(.category-community) {
       color: var(--tertiary);
     }
   }
-}
 
 // Community Space overrides
 body.category-community {
